@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+		<title>Marlboro Gold Surge</title>
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+		
+        <!--<script type="text/javascript" src="js/accelerometer.js"></script>-->
+		<link href="css/style.css" rel="stylesheet">
+		<!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+		<script id="post-vert" type="x-shader/x-vertex">
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+	    </script>
+	    <script id="post-frag" type="x-shader/x-fragment">
+	        varying vec2 vUv;
+	        uniform sampler2D texture;
+	        uniform vec3 color;
+	        
+	        void main() {
+	            mediump vec3 tColor = texture2D( texture, vUv ).rgb;
+	            mediump float a = (length(tColor - color) - 0.45) * 7.0;
+	            gl_FragColor = vec4(tColor, a);
+	        }
+    	</script>
+	</head>
+	<style>
+	p.b {
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+	p.a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:4px;
+  
+}
+	
+	</style>
+	<body style="position: relative;width: 414px;height:736px; margin: 0 auto;">
+		<img src="img/head.png" class="score-img chevron-icon2" style="max-width:100%;">
+		<img src="img/sound-off.png" width="5%" class="sound-game off" />
+		<img src="img/chevron-white.png" class="score-img chevron-icon" style="max-width:12%;">
+		
+		<label id="score"></label>
+					
+
+		<div class="timer-wrapper">
+			<p id="timer"></p>
+		</div>
+			
+		<label id="score-label">LITTERS</label>
+		<!--<video muted loop playsinline autoplay id="flow-down" src="model/flow-down.mp4" style="width: 200px;position: absolute;opacity: 0;"></video>-->
+		<!--<video muted loop playsinline autoplay id="flow-down" src="model/flow-up.mp4" style="width: 200px;position: absolute;opacity: 0;"></video>-->
+		<div class="panel">
+
+			
+			<!--
+			<table id="controls">
+			  	<tr>
+			    	<td>Up:</td>
+			    	<td>Jump</td>
+			  	</tr>
+			  	<tr>
+			    	<td>Left:</td>
+			    	<td>Left lane switch</td>
+			  	</tr>
+			  	<tr>
+			    	<td>Right:</td>
+			    	<td>Right lane switch</td>
+			  	</tr>
+			  	<tr>
+			    	<td>p:</td>
+			    	<td>Pause</td>
+			  	</tr>
+			</table>
+			<table id="ranks"></table>
+
+			<div class="animate-flicker" id="variable-content">Press any button to begin</div>
+			-->
+			<p id="temp"></p>
+		</div>
+		<div id="world" style="background: url('img/water.png');background-size: 100% 100%;">
+			<!--<img src="img/1908-billboard.png" id="billboard-1908">-->
+			<img src="" id="lm-red">
+			<img src="" id="lm-red-old">
+		</div>
+		
+		
+		<div id="loading">
+			<div>
+			  <div>loading...</div>
+			  <div class="progress" style="height: 2rem;"><div id="progressbar"></div></div>
+			</div>
+		</div>
+		<div class="countdown" >
+			<p id="countdown" style="background: url('img/count-bg.png') no-repeat center center;background-size: 100% 100%;min-width:300px;text-align: center;"></p>
+		</div>
+		
+			<footer>
+		<p class="a"><br> </p>
+			<p class="b">GOVERNMENT WARNING:</p>
+			<p class="b">CIGARETTE SMOKING IS</p>
+			<p class="b">DANGEROUS TO YOUR HEALTH</p>
+				<p class="a"><br> </p>
+		</footer>
+		<!--<video class="flow-up" autoplay="" id="flow-up" loop="">
+			<source src="model/flow_up.webm" type="video/webm">
+		</video>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/GLTFLoader.js"></script>
+		<script type="text/javascript" src="js/OrbitControls.js"></script>
+		<!--<script type="text/javascript" src="js/SkeletonUtils.js"></script>-->
+        <script type="text/javascript" src="js/game.js"></script>
+		
+        <script>
+        	var splashSFX = new splashPage();
+
+        	//splashSFX.play();
+        	function splashPage() {
+		  		this.sound = document.createElement("audio");
+		  		this.sound.src = "sfx/Sound Bed.mp3";
+		  		this.sound.setAttribute("preload", "auto");
+		  		this.sound.setAttribute("controls", "none");
+		  		this.sound.setAttribute("loop", "");
+		  		this.sound.style.display = "none";
+		  		document.body.appendChild(this.sound);
+		  		this.play = function(){
+		    		this.sound.play();
+		  		}
+		  		this.stop = function(){
+		    		this.sound.pause();
+		  		}
+			}
+
+			$(".sound-game").on("click", function(){
+
+				if($(".sound-game").hasClass("off")){
+					splashSFX.play();
+					$(".sound-game").removeClass("off");
+					$(".sound-game").attr("src","img/sound-on.png");
+				}
+				else{
+					splashSFX.stop();
+					$(".sound-game").addClass("off");
+					$(".sound-game").attr("src","img/sound-off.png");
+				}
+			});
+
+			// Check if OS of mobile device for accelerometer issue
+			var iOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+			if(iOSDevice == true){
+				$(".sound-game").css("display","");
+			}
+			else{
+				$(".sound-game").css("display","none");
+				window.addEventListener('load', function () {
+		        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		        var source = audioCtx.createBufferSource();
+		        var xhr = new XMLHttpRequest();
+		        xhr.open('GET', 'sfx/Sound Bed.mp3');
+		        xhr.responseType = 'arraybuffer';
+		        xhr.addEventListener('load', function (r) {
+		            audioCtx.decodeAudioData(
+		                    xhr.response, 
+		                    function (buffer) {
+		                        source.buffer = buffer;
+		                        source.connect(audioCtx.destination);
+		                        source.loop = true;
+		                    });
+		            source.start(0);
+		        });
+		        xhr.send();
+		    	});
+			}
+			var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
+			if(isMobile != null){
+                $("body").height(window.innerHeight);
+                $("body").width(window.innerWidth);;
+            }
+            
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var colorHome = url.searchParams.get("color");
+            
+			$("#lm-red").attr("src","img/"+colorHome+".png");
+			
+
+        </script>
+    	
+
+	</body>
+</html>

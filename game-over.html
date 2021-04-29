@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+		<title>Marlboro Gold Surge</title>
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+		<script type="text/javascript" src="js/jquery.js"></script>
+
+
+		<!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+	</head>
+	<style>
+	p.b {
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+	p.a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:4px;
+  
+}
+	
+	</style>
+	<body class="game-over-bg" style="width: 414px;height:736px; margin: 0 auto;">
+		<img src="img/sound-off.png" width="5%" class="sound off" />
+		<a href="select.html" ><img src="img/try-again.png" class="try-btn" style="width: 100%;margin-left:-3%;"></a>
+		<footer>
+		<p class="a"><br> </p>
+			<p class="b">GOVERNMENT WARNING:</p>
+			<p class="b">CIGARETTE SMOKING IS</p>
+			<p class="b">DANGEROUS TO YOUR HEALTH</p>
+				<p class="a"><br> </p>
+		</footer>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+        	var gameOverSFX = new gameOver();
+        	var buttonClickSFX = new buttonClick();
+        	//
+        	function gameOver() {
+		  		this.sound = document.createElement("audio");
+		  		this.sound.src = "sfx/Game Over.mp3";
+		  		this.sound.setAttribute("preload", "auto");
+		  		this.sound.setAttribute("controls", "none");
+		  		this.sound.setAttribute("loop", "");
+		  		this.sound.style.display = "none";
+		  		document.body.appendChild(this.sound);
+		  		this.play = function(){
+		    		this.sound.play();
+		  		}
+		  		this.stop = function(){
+		    		this.sound.pause();
+		  		}
+			}
+
+			function buttonClick() {
+			  this.sound = document.createElement("audio");
+			  this.sound.src = "sfx/Button Click.mp3";
+			  this.sound.setAttribute("preload", "auto");
+			  this.sound.setAttribute("controls", "none");
+			  this.sound.style.display = "none";
+			  document.body.appendChild(this.sound);
+			  this.play = function(){
+			    this.sound.play();
+			  }
+			  this.stop = function(){
+			    this.sound.pause();
+			  }
+			}
+
+			$(".sound").on("click", function(){
+
+				if($(".sound").hasClass("off")){
+					gameOverSFX.play();
+					$(".sound").removeClass("off");
+					$(".sound").attr("src","img/sound-on.png");
+				}
+				else{
+					gameOverSFX.stop();
+					$(".sound").addClass("off");
+					$(".sound").attr("src","img/sound-off.png");
+				}
+			});
+
+			$(".try-btn").on("click", function(){
+				buttonClick.play();
+				
+			});
+			var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
+			if(isMobile != null){
+                $("body").height(window.innerHeight);
+                $("body").width(window.innerWidth);;
+            }
+        </script>
+	</body>
+</html>

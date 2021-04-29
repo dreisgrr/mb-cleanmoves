@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+		<title>Marlboro Gold Surge</title>
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+		<script type="text/javascript" src="js/jquery.js"></script>
+
+
+		<!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+	</head>
+	<style>
+	#lm-you-decide { display:block; }
+	#start { display:block; }
+	#lm-start-txt { display:block; }
+	#startbtn { display:block; }
+	
+	p.b {
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+	p.a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:4px;
+  
+}
+	</style>
+	<body class="splash-bg" style="width: 414px;height:736px; margin: 0 auto;">
+		<div class="lm-start-logo">
+			<img id="start"
+			src="img/start-logo.png">
+		</div>
+		
+		
+		<div >
+			<img id="lm-you-decide" src="img/lm-you-decide.png" width="27%"/>
+		</div> 
+		<div>
+			<img src="img/sound-off.png" width="5%" class="sound off" />
+			<a href="select.html"  id="play-btn"><img id="startbtn" src="img/lm-play.png" class="play-btn" style="max-width:30%;"></a>
+			<a href="" data-toggle="modal" data-target="#info-modal"  id="showImage" onclick="buttonClickSFX.play()"><img src="img/how.png" class="how-to-play-btn" style="width:20%;"></a>
+		</div>
+			<img id="lm-start-txt" src="img/lm-start-txt.png" width="75%"/>
+		</div>
+
+		<!-- Modal -->
+		
+		<div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="info-modal" aria-hidden="true" >
+		  <div class="modal-dialog" role="document" >
+		  
+  
+		      <div class="modal-body" >
+		    <img src="img/mec-min.png" class="close" id="mec" data-dismiss="modal" aria-label="Close" onclick="buttonClickSFX.play()"  style="width:70%;margin-left:47%;margin-right:-50%; transform: translate(-50%, -50%);margin-top:60%; position: absolute;opacity:1;" class="img-fluid">
+		   <script>
+		  document.getElementById("showImage").onclick = function() {
+          document.getElementById("lm-you-decide").style.display = "none";
+	      document.getElementById("start").style.display = "none";
+	      document.getElementById("lm-start-txt").style.display = "none";
+		  document.getElementById("startbtn").style.display = "none";
+}
+
+  document.getElementById("info-modal").onclick = function() {
+          document.getElementById("lm-you-decide").style.display = "block";
+	      document.getElementById("start").style.display = "block";
+	      document.getElementById("lm-start-txt").style.display = "block";
+		  document.getElementById("startbtn").style.display = "block";
+}
+		   </script>
+		    </div>
+		  </div>
+		</div>
+		<footer>
+		<p class="a"><br> </p>
+			<p class="b">GOVERNMENT WARNING:</p>
+			<p class="b">CIGARETTE SMOKING IS</p>
+			<p class="b">DANGEROUS TO YOUR HEALTH</p>
+				<p class="a"><br> </p>
+		</footer>
+		<!--<audio playsinline autoplay loop src="sfx/Sound Bed.mp3" style="display: none;"></audio>-->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+        	var splashSFX = new splashPage();
+        	var buttonClickSFX = new buttonClick();
+        	//splashSFX.play();
+        	function splashPage() {
+		  		this.sound = document.createElement("audio");
+		  		this.sound.src = "sfx/Sound Bed.mp3";
+		  		this.sound.setAttribute("preload", "auto");
+		  		this.sound.setAttribute("controls", "none");
+		  		this.sound.setAttribute("loop", "");
+		  		this.sound.style.display = "none";
+		  		document.body.appendChild(this.sound);
+		  		this.play = function(){
+		    		this.sound.play();
+		  		}
+		  		this.stop = function(){
+		    		this.sound.pause();
+		  		}
+			}
+
+			function buttonClick() {
+			  this.sound = document.createElement("audio");
+			  this.sound.src = "sfx/Button Click.mp3";
+			  this.sound.setAttribute("preload", "auto");
+			  this.sound.setAttribute("controls", "none");
+			  this.sound.style.display = "none";
+			  document.body.appendChild(this.sound);
+			  this.play = function(){
+			    this.sound.play();
+			  }
+			  this.stop = function(){
+			    this.sound.pause();
+			  }
+			}
+
+			$("#play-btn").on("click", function(){
+				buttonClickSFX.play();
+			});
+
+			$(".sound").on("click", function(){
+				if($(".sound").hasClass("off")){
+					splashSFX.play();
+					$(".sound").removeClass("off");
+					$(".sound").attr("src","img/sound-on.png");
+				}
+				else{
+					splashSFX.stop();
+					$(".sound").addClass("off");
+					$(".sound").attr("src","img/sound-off.png");
+				}
+			});
+
+			// Check if OS of mobile device for accelerometer issue
+			var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+			
+			if(iOS == true){
+				$(".sound").css("display","");
+			}
+			else{
+				$(".sound").css("display","none");
+				window.addEventListener('load', function () {
+		        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		        var source = audioCtx.createBufferSource();
+		        var xhr = new XMLHttpRequest();
+		        xhr.open('GET', 'sfx/Sound Bed.mp3');
+		        xhr.responseType = 'arraybuffer';
+		        xhr.addEventListener('load', function (r) {
+		            audioCtx.decodeAudioData(
+		                    xhr.response, 
+		                    function (buffer) {
+		                        source.buffer = buffer;
+		                        source.connect(audioCtx.destination);
+		                        source.loop = true;
+		                    });
+		            source.start(0);
+		        });
+		        xhr.send();
+		    	});
+			}
+
+			var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
+			if(isMobile != null){
+                $("body").height(window.innerHeight);
+                $("body").width(window.innerWidth);
+            }
+			
+        </script>
+	</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+		<title>Marlboro Gold Surge</title>
+		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
+		<script type="text/javascript" src="js/jquery.js"></script>
+
+
+		<!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+	</head>
+	
+	<style>
+	p.b {
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+	p.a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:4px;
+  
+}
+	
+	</style>
+	<body class="won-bg" id="won" style="width: 414px;height:736px; margin: 0 auto;">
+		<!--<div>
+			<img src="img/sound-off.png" width="5%" class="sound off" />
+		</div>-->
+		<img id="reveal" src="img/reveal91.png" style="width: 100%;margin-top:2%;"/>
+		
+		<div id="score-wrapper" 
+  style="display:none;
+   height: 100%;
+   width: 100%;        
+   margin: auto;
+   margin-top:-1%;
+   top: 0;
+   position: absolute;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
+  -o-background-size: 100% 100%;">
+			
+		
+			
+			
+			<a id="claim-btn" href="https://marlboro.ph/m/promotions"  target="_blank"><img src="img/claim-btn.png" class="register-btn" width="47%" style="margin-top:5%;"/></a>
+		</div>
+		<footer>
+		<p class="a"><br> </p>
+			<p class="b">GOVERNMENT WARNING:</p>
+			<p class="b">CIGARETTE SMOKING IS</p>
+			<p class="b">DANGEROUS TO YOUR HEALTH</p>
+				<p class="a"><br> </p>
+		</footer>
+		<!--<audio playsinline autoplay loop src="sfx/Sound Bed.mp3" style="display: none;"></audio>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+
+			var is_iPad = navigator.userAgent.match(/iPad/i) != null;
+			var countdown = 3;
+			var showSCore = setInterval(function(){
+				countdown -=1;
+				if(countdown ==0){
+					//document.getElementById("reveal").style = "display:none";
+					//document.getElementById("score-wrapper").style = "display:block";
+					$("#reveal").fadeOut();
+					$("#score-wrapper").fadeIn();
+					clearInterval(showSCore);
+				}
+			}, 1000)
+			var url_string = window.location.href;
+			var url = new URL(url_string);
+			var score = url.searchParams.get("score");
+			
+			$(".lm-score").text(score);
+				if(score > 59){
+				
+				document.getElementById('score-wrapper').style.backgroundImage="url(img/warrior.png)";
+				
+				}
+				
+				else if (score > 49){
+			
+				document.getElementById('score-wrapper').style.backgroundImage="url(img/hero.png)";
+				
+				}
+				
+				else{
+			
+				document.getElementById('score-wrapper').style.backgroundImage="url(img/zero.png)";
+				
+				}
+
+			if(window.innerHeight > 736 && window.innerHeight <= 812){
+				$(".lm-score").css("top","35%");
+				$(".lm-score-txt").css("top","42%");
+			}
+
+			if(is_iPad){
+				$(".lm-score").css("font-size","150px");
+				$(".lm-score-txt").css("font-size","45px");
+			}
+			var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
+			if(isMobile != null){
+                $("body").height(window.innerHeight);
+                $("body").width(window.innerWidth);;
+            }
+        </script>
+	</body>
+</html>
